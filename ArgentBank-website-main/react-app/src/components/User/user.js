@@ -2,14 +2,18 @@ import React, { useState } from "react";
 import "./user.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setUser } from "../../redux/actions/userSlice"; // Assure-toi que ce chemin est correct
+import { setUser } from "../../redux/actions/userSlice";
 
 const User = () => {
+  // Définit des états pour gérer le nom d'utilisateur et l'affichage du formulaire d'édition.
   const [userName, setUserName] = useState("");
-  const [isEditing, setIsEditing] = useState(false); // Nouvel état pour contrôler l'affichage du formulaire
+  const [isEditing, setIsEditing] = useState(false);
+
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const { token, name, firstname } = user;
+  const user = useSelector((state) => state.user); // Accède à l'état de l'utilisateur stocké dans Redux.
+  const { token, name, firstname } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
+
+  // Gère la soumission du formulaire de mise à jour du userName.
 
   const handleUpdateUserName = async (e) => {
     e.preventDefault();

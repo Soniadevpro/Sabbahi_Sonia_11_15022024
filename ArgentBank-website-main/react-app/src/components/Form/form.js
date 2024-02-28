@@ -1,21 +1,23 @@
 import "../Form/form.css";
 import React, { useState } from "react";
-import { loginUser } from "../../redux/callAPI"; // Modifier pour importer loginUser
+import { loginUser } from "../../redux/callAPI";
 import { useNavigate } from "react-router-dom";
 
 const Form = () => {
+  // Déclaration des états locaux pour email et password.
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const loginUser = useLogin(); // Utilisez le hook pour obtenir la fonction loginUser
-  const navigate = useNavigate();
 
+  const navigate = useNavigate(); // Permet de naviguer programmablement entre les routes.
+
+  // Gère la soumission du formulaire.
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    await loginUser(email, password, navigate);
-    // La redirection est maintenant gérée dans useLoginUser
+    e.preventDefault(); // Empêche le comportement par défaut de soumission de formulaire.
+    await loginUser(email, password, navigate); // Appelle loginUser avec email, password, et navigate.
   };
 
   return (
+    // Structure HTML du formulaire de connexion.
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
@@ -29,11 +31,6 @@ const Form = () => {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          {/* <div className="input-remember">
-            <input type="checkbox" id="remember-me" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
-            <label htmlFor="remember-me">Remember me</label>
-          </div> */}
-          {/* {errorMessage} */}
           <button className="sign-in-button" type="submit">
             Sign In
           </button>
