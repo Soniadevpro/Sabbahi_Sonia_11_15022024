@@ -1,7 +1,7 @@
 // Configuration du store de Redux
 
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./features/userSlice";
+import userReducer from "../actions/userSlice";
 
 export const store = configureStore({
   reducer: { user: userReducer }, // userReducer gère l'état lié à l'utilisateur

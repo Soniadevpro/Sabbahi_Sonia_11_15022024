@@ -1,11 +1,11 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
-import "./style/index.css";
+import "./index.css";
 
 // REDUX
 import { Provider } from "react-redux";
-import { store } from "./Redux/store.js";
+import { store } from "./redux/reducers/store";
 // Utilisation de createRoot pour rendre votre application
 const root = createRoot(document.getElementById("root"));
 root.render(

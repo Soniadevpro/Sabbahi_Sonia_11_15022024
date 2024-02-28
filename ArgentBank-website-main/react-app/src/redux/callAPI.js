@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import { store } from "./store"; // Ajouter l'importation du store
-import { setUser, setToken } from "./features/userSlice"; // Ajouter l'importation de setUp
+import { setUser, setToken } from "./actions/userSlice"; // Ajouter l'importation de setUp
 
 // import { useNavigate } from "react-router-dom";
 // const navigate = useNavigate();
