@@ -5,7 +5,7 @@ import Home from "./views/Home/home";
 import Login from "./views/Login/login";
 import Profile from "./views/Profile/profile";
 
-// import protectedRoute from "./redux/protectedRoute";
+import ProtectedRoute from "./redux/protectedRoute";
 
 const App = () => {
   return (
@@ -13,8 +13,15 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route element={<protectedRoute />} /> */}
-        <Route path="/profile" element={<Profile />} />
+
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
