@@ -1,17 +1,17 @@
 import React from "react";
+
+import Form from "../../components/Form/form";
 import Header from "../../components/Header/header";
 import Footer from "../../components/Footer/footer";
-import Features from "../../components/Features/features";
-import Hero from "../../components/Hero/hero";
-const home = () => {
+
+const Login = () => {
   return (
     <div>
       <Header />
-      <Hero />
-      <Features />
+      <Form />
       <Footer />
     </div>
   );
 };
 
-export default home;
+export default Login;

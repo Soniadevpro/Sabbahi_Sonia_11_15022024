@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { store } from "./store"; // Ajouter l'importation du store
+import { store } from "./reducers/store"; // Ajouter l'importation du store
 import { setUser, setToken } from "./actions/userSlice"; // Ajouter l'importation de setUp
 
 // import { useNavigate } from "react-router-dom";
@@ -12,10 +12,10 @@ export const loginUser = async (email, password, navigate) => {
 
     console.log(response.data.body);
     store.dispatch(setToken(response.data.body));
-
+    store.dispatch(setUser(response.data.body));
     // Afficher une alerte de succès
     alert("Connexion réussie !");
-    navigate("/user-account");
+    navigate("/profile");
     // Redirection si nécessaire
   } catch (error) {
     console.error(error);
@@ -24,12 +24,12 @@ export const loginUser = async (email, password, navigate) => {
   }
 };
 
-export const userSignup = async (email, password, firstName, lastName, userName) => {
-  try {
-    const response = await axios.post("http://localhost:3001/api/v1/user/signup", { email, password, firstName, lastName, userName });
-    console.log(response.data.body);
-    store.dispatch(setSignup(response.data.body));
-  } catch (error) {
-    console.error(error);
-  }
-};
+// export const userSignup = async (email, password, firstName, lastName, userName) => {
+//   try {
+//     const response = await axios.post("http://localhost:3001/api/v1/user/signup", { email, password, firstName, lastName, userName });
+//     console.log(response.data.body);
+//     store.dispatch(setSignup(response.data.body));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };

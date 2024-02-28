@@ -3,10 +3,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/userSlice"; // Importation de l'action logout
 import "./header.css";
-import Logo from "../../assets/argentBankLogo.png"; // Importation du logo
+import Logo from "../../assets/images/argentBankLogo.webp"; // Importation du logo
 
 // Composant Navbar : Barre de navigation pour l'application
-const header = () => {
+const Header = () => {
   // Accès à l'état de l'utilisateur depuis le store Redux
   const user = useSelector((state) => state.user);
   // Utilisation de useDispatch pour envoyer des actions à Redux
@@ -58,4 +58,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Header;
