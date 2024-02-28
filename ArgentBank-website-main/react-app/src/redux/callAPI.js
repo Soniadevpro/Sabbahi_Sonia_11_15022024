@@ -10,8 +10,11 @@ export const loginUser = async (email, password, navigate) => {
   try {
     const response = await axios.post("http://localhost:3001/api/v1/user/login", { email, password });
 
+    const token = response.data.token;
+
     console.log(response.data.body);
     store.dispatch(setToken(response.data.body));
+    await fetchUserProfile(token);
     store.dispatch(setUser(response.data.body));
 
     // Afficher une alerte de succès
@@ -26,24 +29,14 @@ export const loginUser = async (email, password, navigate) => {
 };
 export const fetchUserProfile = async (token) => {
   try {
-    console.log("Envoi de la requête GET pour le profil utilisateur avec le token:", token);
-    const profileResponse = await axios.get("http://localhost:3001/api/v1/user/profile", {
+    const profileResponse = await axios.put("http://localhost:3001/api/v1/user/profile", {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("Réponse de l'API pour le profil utilisateur:", profileResponse.data);
+
     // Extraction et mise à jour de l'état avec les informations de l'utilisateur
-    const { id, email } = profileResponse.data.body;
-    store.dispatch(setUser({ id, email, token }));
+    const { name, firstname, username } = profileResponse.data.body;
+    store.dispatch(setUser({ name, firstname, username, token }));
   } catch (error) {
     console.error("Erreur lors de la récupération du profil de l'utilisateur :", error);
   }
 };
-// export const userSignup = async (email, password, firstName, lastName, userName) => {
-//   try {
-//     const response = await axios.post("http://localhost:3001/api/v1/user/signup", { email, password, firstName, lastName, userName });
-//     console.log(response.data.body);
-//     store.dispatch(setSignup(response.data.body));
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };

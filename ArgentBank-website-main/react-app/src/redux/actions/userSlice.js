@@ -31,8 +31,6 @@ const userSlice = createSlice({
       const { token } = action.payload;
       state.token = token;
     },
-
-    setSignup: (state, action) => {},
   },
 });
 

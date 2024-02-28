@@ -1,6 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import "./user.css";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setUser } from "../../redux/actions/userSlice"; // Assure-toi que ce chemin est correct
+
 const User = () => {
+  const [userName, setUserName] = useState("");
+  const [isEditing, setIsEditing] = useState(false); // Nouvel état pour contrôler l'affichage du formulaire
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+  const { token, name, firstname } = user;
+
+  const handleUpdateUserName = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.put("http://localhost:3001/api/v1/user/profile", { userName }, { headers: { Authorization: `Bearer ${token}` } });
+      console.log(response);
+      dispatch(setUser({ ...user, username: userName }));
+
+      alert("Nom d'utilisateur mis à jour avec succès !");
+      setIsEditing(false); // Masquer le formulaire après la mise à jour
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du nom d'utilisateur:", error);
+      alert("Échec de la mise à jour du nom d'utilisateur.");
+    }
+  };
+  console.log("Informations de l'utilisateur :", user);
   return (
     <div>
       <main className="main bg-dark">
@@ -8,10 +33,35 @@ const User = () => {
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {user.username || "User"}!
           </h1>
-          <button className="edit-button">Edit Name</button>
+          {!isEditing && (
+            <button className="edit-button" onClick={() => setIsEditing(true)}>
+              Edit Name
+            </button>
+          )}
         </div>
+        {isEditing && (
+          <div className="header">
+            <form onSubmit={handleUpdateUserName}>
+              <div className="input-group">
+                <label htmlFor="name">Name</label>
+                <input type="text" id="name" value={name} disabled />
+              </div>
+              <div className="input-group">
+                <label htmlFor="firstname">Firstname</label>
+                <input type="text" id="firstname" value={firstname} disabled />
+              </div>
+              <div className="input-group">
+                <label htmlFor="userName">New Username</label>
+                <input type="text" id="userName" placeholder="Nouveau nom d'utilisateur" value={userName} onChange={(e) => setUserName(e.target.value)} required />
+              </div>
+              <button type="submit" className="edit-button">
+                Mettre à jour
+              </button>
+            </form>
+          </div>
+        )}
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
           <div className="account-content-wrapper">
