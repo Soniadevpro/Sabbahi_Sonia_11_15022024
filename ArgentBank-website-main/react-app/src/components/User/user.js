@@ -1,27 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./user.css";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/actions/userSlice";
-
+import { useNavigate } from "react-router-dom";
 const User = () => {
   // Définit des états pour gérer le nom d'utilisateur et l'affichage du formulaire d'édition.
-  const [userName, setUserName] = useState("");
+  const user = useSelector((state) => state.user); // Accède à l'état de l'utilisateur stocké dans Redux.
+  const [userName, setUserName] = useState(user.username || "");
+
   const [isEditing, setIsEditing] = useState(false);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user); // Accède à l'état de l'utilisateur stocké dans Redux.
-  const { token, name, firstname } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
+  const { token, name, firstname, username } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
+  console.log(token);
 
+  if (!token) {
+    navigate("/login");
+  }
+  // Synchronisez l'état local avec Redux
+  useEffect(() => {
+    if (user && user.username) {
+      setUserName(user.username);
+    }
+  }, [user, user.username]);
   // Gère la soumission du formulaire de mise à jour du userName.
 
   const handleUpdateUserName = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("http://localhost:3001/api/v1/user/profile", { userName }, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await axios.put("http://localhost:3001/api/v1/user/profile", { username: userName }, { headers: { Authorization: `Bearer ${token}` } });
       console.log(response);
-      dispatch(setUser({ ...user, username: userName }));
-
+      dispatch(
+        setUser({
+          userName,
+          firstName: user.firstname, // Utilisez l'ancienne valeur car elle n'est pas modifiée
+          lastName: user.name, // Utilisez l'ancienne valeur car elle n'est pas modifiée
+        })
+      );
       alert("Nom d'utilisateur mis à jour avec succès !");
       setIsEditing(false); // Masquer le formulaire après la mise à jour
     } catch (error) {
@@ -30,6 +47,7 @@ const User = () => {
     }
   };
   console.log("Informations de l'utilisateur :", user);
+  console.log("Username value:", userName);
   return (
     <div>
       <main className="main bg-dark">
@@ -37,7 +55,7 @@ const User = () => {
           <h1>
             Welcome back
             <br />
-            {user.username || "User"}!
+            {user.firstname} {user.name} !
           </h1>
           {!isEditing && (
             <button className="edit-button" onClick={() => setIsEditing(true)}>
@@ -57,8 +75,8 @@ const User = () => {
                 <input type="text" id="firstname" value={firstname} disabled />
               </div>
               <div className="input-group">
-                <label htmlFor="userName">New Username</label>
-                <input type="text" id="userName" placeholder="Nouveau nom d'utilisateur" value={userName} onChange={(e) => setUserName(e.target.value)} required />
+                <label htmlFor="userName">Username</label>
+                <input type="text" id="username" placeholder="Nouveau nom d'utilisateur" value={userName || ""} onChange={(e) => setUserName(e.target.value)} required />
               </div>
               <button type="submit" className="edit-button">
                 Mettre à jour

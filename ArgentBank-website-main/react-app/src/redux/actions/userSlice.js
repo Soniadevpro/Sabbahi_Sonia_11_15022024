@@ -14,11 +14,10 @@ const userSlice = createSlice({
   // Reducers : setUser est un reducer pour mettre à jour l'état de l'utilisateur. Il prend action.payload et met à jour l'état en conséquence.
   reducers: {
     setUser: (state, action) => {
-      const { name, firstname, username, token } = action.payload;
-      state.name = name;
-      state.firstname = firstname;
-      state.username = username;
-      state.token = token;
+      const { firstName, userName, lastName } = action.payload;
+      state.name = lastName;
+      state.firstname = firstName;
+      state.username = userName;
     },
     logout: (state) => {
       state.name = "";
@@ -28,7 +27,7 @@ const userSlice = createSlice({
     },
 
     setToken: (state, action) => {
-      state.token = action.payload;
+      state.token = action.payload.token;
     },
   },
 });
