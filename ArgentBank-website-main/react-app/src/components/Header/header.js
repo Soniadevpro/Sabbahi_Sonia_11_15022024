@@ -30,15 +30,18 @@ const Header = () => {
       </Link>
       <div>
         {/* Affichage conditionnel basé sur l'état de connexion de l'utilisateur */}
+
         {user.token ? (
           // Affichage pour l'utilisateur connecté
           <>
-            <span className="main-nav-item">
+            <Link to="/profile" className="main-nav-item">
               <i className="fa fa-user-circle"></i>
-              {user.username}
-            </span>
+              {user.userName}
+            </Link>
             {/* Bouton de déconnexion */}
             <Link to="/login" onClick={handleLogout} className="main-nav-item logout-button">
+              {" "}
+              <i class="fa fa-sign-out"></i>
               Sign Out
             </Link>
           </>
