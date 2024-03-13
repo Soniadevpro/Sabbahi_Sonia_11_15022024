@@ -13,7 +13,7 @@ const User = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, name, firstname, username } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
+  const { token, name, firstname } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
   console.log(token);
 
   if (!token) {
@@ -34,9 +34,9 @@ const User = () => {
       console.log(response);
       dispatch(
         setUser({
-          userName,
-          firstName: user.firstname, // Utilisez l'ancienne valeur car elle n'est pas modifiée
-          lastName: user.name, // Utilisez l'ancienne valeur car elle n'est pas modifiée
+          userName: userName,
+          firstName: user.firstname,
+          lastName: user.name,
         })
       );
       alert("Nom d'utilisateur mis à jour avec succès !");
