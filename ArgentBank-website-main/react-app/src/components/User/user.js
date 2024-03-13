@@ -65,7 +65,7 @@ const User = () => {
         </div>
         {isEditing && (
           <div className="header">
-            <form onSubmit={handleUpdateUserName}>
+            <form className="container-form" onSubmit={handleUpdateUserName}>
               <div className="input-group">
                 <label htmlFor="name">Name</label>
                 <input type="text" id="name" value={name} disabled />
@@ -79,7 +79,7 @@ const User = () => {
                 <input type="text" id="username" placeholder="Nouveau nom d'utilisateur" value={userName || ""} onChange={(e) => setUserName(e.target.value)} required />
               </div>
               <button type="submit" className="edit-button">
-                Mettre à jour
+                Update
               </button>
             </form>
           </div>
