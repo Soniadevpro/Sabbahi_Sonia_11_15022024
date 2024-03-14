@@ -47,6 +47,10 @@
 .header {
   color: #fff;
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .transaction-button {
@@ -67,9 +71,10 @@
   align-items: center;
   flex-direction: column;
   /* padding: 10px 0px 10px 0px; */
-  margin: 0px 393px 23px 417px;
+
   gap: 6px;
   padding: 10px;
+  width: 402px;
 }
 .input-group {
   display: flex;
