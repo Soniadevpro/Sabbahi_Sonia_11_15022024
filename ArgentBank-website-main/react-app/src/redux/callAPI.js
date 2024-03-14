@@ -36,7 +36,7 @@ export const fetchUserProfile = async (token) => {
     // const { id, email } = profileResponse.data.body; // Supprime le token de cette déstructuration car il ne devrait pas être re-défini ici
 
     const { firstName, lastName, userName } = profileResponse.data.body;
-    store.dispatch(setUser({ firstName, userName, lastName }));
+    store.dispatch(setUser({ firstName, lastName, username: userName }));
   } catch (error) {
     console.error("Erreur lors de la récupération du profil de l'utilisateur :", error);
   }
