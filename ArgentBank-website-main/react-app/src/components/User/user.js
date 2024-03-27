@@ -30,7 +30,7 @@ const User = () => {
   const handleUpdateUserName = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put("http://localhost:3001/api/v1/user/profile", { username: userName }, { headers: { Authorization: `Bearer ${token}` } });
+      const response = await axios.put("http://localhost:3001/api/v1/user/profile", { userName: userName }, { headers: { Authorization: `Bearer ${token}` } });
       console.log(response);
       dispatch(
         setUser({
