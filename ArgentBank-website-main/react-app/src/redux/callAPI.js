@@ -41,8 +41,6 @@ export const fetchUserProfile = async (token) => {
       }
     );
     console.log(profileResponse.data);
-    // Extraction et mise à jour de l'état avec les informations de l'utilisateur
-    // const { id, email } = profileResponse.data.body; // Supprime le token de cette déstructuration car il ne devrait pas être re-défini ici
 
     const { firstName, lastName, userName } = profileResponse.data.body;
     store.dispatch(setUser({ firstName, lastName, userName }));

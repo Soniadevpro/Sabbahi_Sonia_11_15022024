@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/actions/userSlice";
 import { useNavigate } from "react-router-dom";
-import AccountsOverview from "../Account/account";
+import AccountsOverview from "../../components/Account/account";
 const User = () => {
   // Définit des états pour gérer le nom d'utilisateur et l'affichage du formulaire d'édition.
   const user = useSelector((state) => state.user); // Accède à l'état de l'utilisateur stocké dans Redux.
@@ -14,18 +14,18 @@ const User = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, name, firstname, username } = useSelector((state) => state.user); // Extrai les informations nécessaires de l'état de l'utilisateur.
+  const { token, name, firstname } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
   console.log(token);
 
-  useEffect(() => {
-    if (!token) {
-      navigate("/login");
-    }
-  }, [token, navigate]);
+  if (!token) {
+    navigate("/login");
+  }
   // Synchronisez l'état local avec Redux
   useEffect(() => {
-    setUserName(username || "");
-  }, [username]);
+    if (user && user.username) {
+      setUserName(user.username);
+    }
+  }, [user, user.username]);
   // Gère la soumission du formulaire de mise à jour du userName.
 
   const handleUpdateUserName = async (e) => {
