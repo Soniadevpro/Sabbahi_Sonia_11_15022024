@@ -20,10 +20,14 @@ const userSlice = createSlice({
       state.username = userName;
     },
     logout: (state) => {
+      // Effacer l'état
       state.name = "";
       state.firstname = "";
       state.username = "";
       state.token = "";
+      // Effacer le token du stockage local et de la session
+      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
     },
 
     setToken: (state, action) => {

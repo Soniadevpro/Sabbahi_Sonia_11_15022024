@@ -14,18 +14,18 @@ const User = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { token, name, firstname } = user; // Extrai les informations nécessaires de l'état de l'utilisateur.
+  const { token, name, firstname, username } = useSelector((state) => state.user); // Extrai les informations nécessaires de l'état de l'utilisateur.
   console.log(token);
 
-  if (!token) {
-    navigate("/login");
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
   // Synchronisez l'état local avec Redux
   useEffect(() => {
-    if (user && user.username) {
-      setUserName(user.username);
-    }
-  }, [user, user.username]);
+    setUserName(username || "");
+  }, [username]);
   // Gère la soumission du formulaire de mise à jour du userName.
 
   const handleUpdateUserName = async (e) => {

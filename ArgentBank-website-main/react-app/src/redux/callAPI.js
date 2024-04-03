@@ -3,11 +3,17 @@ import { store } from "./reducers/store"; // Accède au store Redux pour dispatc
 import { setUser, setToken } from "./actions/userSlice"; // Importe les actions nécessaires.
 
 // loginUser effectue une requête POST pour connecter l'utilisateur.
-export const loginUser = async (email, password, navigate) => {
+export const loginUser = async (email, password, rememberMe, navigate) => {
   try {
     const response = await axios.post("http://localhost:3001/api/v1/user/login", { email, password });
     const token = response.data.body.token; // Extrait le token de la réponse.
-
+    if (rememberMe) {
+      // Sauvegarder le token dans le stockage local si "Remember me" est coché
+      localStorage.setItem("token", token);
+    } else {
+      // Sinon, stocker le token en session storage pour qu'il ne persiste pas après la fermeture du navigateur
+      sessionStorage.setItem("token", token);
+    }
     store.dispatch(setToken({ token }));
     // Gestion du stockage du token
 

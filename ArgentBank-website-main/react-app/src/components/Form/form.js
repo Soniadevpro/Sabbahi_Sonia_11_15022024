@@ -6,14 +6,14 @@ import { useNavigate } from "react-router-dom";
 const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser(email, password, navigate);
+    await loginUser(email, password, rememberMe, navigate); // Ajout de rememberMe ici
   };
-
+  console.log(rememberMe);
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
@@ -28,7 +28,10 @@ const Form = () => {
             <label htmlFor="password">Password</label>
             <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
           </div>
-          <div className="input-remember"></div>
+          <div className="input-remember">
+            <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
+            <label htmlFor="rememberMe">Remember me</label>
+          </div>
 
           <button className="sign-in-button" type="submit">
             Sign In
