@@ -1,10 +1,9 @@
+// App.js
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
 import Home from "./views/Home/home";
 import Login from "./views/Login/login";
 import Profile from "./views/Profile/profile";
-
 import ProtectedRoute from "./redux/protectedRoute";
 
 const App = () => {
@@ -13,7 +12,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-
         <Route
           path="/profile"
           element={
